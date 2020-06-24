@@ -1,0 +1,32 @@
+package ${entityPackageName};
+
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ *  ${table.comment}
+ */
+@Getter
+@Setter
+@Entity
+public class ${table.className} {
+
+    #foreach($item in ${table.columnList})
+    /**
+     *  ${item.comment}
+     */
+    #if($item.primaryKey)
+    @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "system-uuid")
+    private ${item.attributeType} ${item.attributeName};
+    #else
+    @Column
+    private ${item.attributeType} ${item.attributeName};
+    #end
+    #end
+
+}
